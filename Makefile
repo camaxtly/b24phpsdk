@@ -642,3 +642,7 @@ build-examples-for-documentation:
 	--example-template=docs/api/file-templates/examples/master-example.php \
 	--openai-api-key=$(DOCUMENTATION_OPEN_AI_API_KEY) \
 	--docs-repo-folder=$(DOCUMENTATION_REPOSITORY_FOLDER)
+
+.PHONY: test-integration-crm-smart-process-reads
+test-integration-crm-smart-process-reads:
+	docker compose run --rm php-cli $(PHPUNIT) --testsuite integration_tests_crm_smart_process_reads
