@@ -24,11 +24,11 @@ class SmartProcessReadsTest extends TestCase
             'result' => ['categories' => [['id' => 15, 'entityTypeId' => 1038, 'name' => 'Contracts', 'sort' => 500, 'isDefault' => 'Y']]],
             'total' => 51,
         ]);
-        $categories = $crm->category()->list(1038, 50);
+        $categoriesResult = $crm->category()->list(1038, 50);
         self::assertSame($crm->category(), $crm->category());
-        self::assertSame(15, $categories->getCategories()[0]->id);
-        self::assertTrue($categories->getCategories()[0]->isDefault);
-        self::assertSame(51, $categories->getCoreResponse()->getResponseData()->getPagination()->getTotal());
+        self::assertSame(15, $categoriesResult->getCategories()[0]->id);
+        self::assertTrue($categoriesResult->getCategories()[0]->isDefault);
+        self::assertSame(51, $categoriesResult->getCoreResponse()->getResponseData()->getPagination()->getTotal());
     }
 
     public function testEmptyCategoryListIsSuccessful(): void
@@ -126,13 +126,13 @@ class SmartProcessReadsTest extends TestCase
 
     private function crm(string $apiMethod, array $parameters, array $response): CRMServiceBuilder
     {
-        $http = new MockHttpClient(static function (string $method, string $url, array $options) use ($apiMethod, $parameters, $response): MockResponse {
+        $mockHttpClient = new MockHttpClient(static function (string $method, string $url, array $options) use ($apiMethod, $parameters, $response): MockResponse {
             self::assertSame('POST', $method);
             self::assertStringEndsWith('/' . $apiMethod, rtrim((string) parse_url($url, PHP_URL_PATH), '/'));
             self::assertEquals($parameters, json_decode($options['body'], true, flags: JSON_THROW_ON_ERROR));
             return new MockResponse(json_encode($response, JSON_THROW_ON_ERROR));
         });
-        $core = (new CoreBuilder())->withCredentials(new Credentials(new WebhookUrl('https://example.com/rest/1/test/'), null, null, null))->withHttpClient($http)->build();
+        $core = (new CoreBuilder())->withCredentials(new Credentials(new WebhookUrl('https://example.com/rest/1/test/'), null, null, null))->withHttpClient($mockHttpClient)->build();
         return new CRMServiceBuilder($core, new Batch($core, new NullLogger()), new NullBulkItemsReader(), new NullLogger());
     }
 }

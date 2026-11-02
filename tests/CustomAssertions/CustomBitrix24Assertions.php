@@ -137,6 +137,11 @@ trait CustomBitrix24Assertions
         foreach ($fieldCodesFromApi as $fieldCode => $fieldData) {
             // mapping internal bitrix24 types to bitrix24 sdk types
             switch ($fieldData['type']) {
+                case 'bool':
+                case 'boolean':
+                    $this->assertTrue(str_contains($propsFromAnnotations[$fieldCode], 'bool'));
+                    break;
+
                 case 'string':
                 case 'crm_currency':
                 case 'crm_status':

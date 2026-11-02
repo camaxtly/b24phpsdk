@@ -645,4 +645,4 @@ build-examples-for-documentation:
 
 .PHONY: test-integration-crm-smart-process-reads
 test-integration-crm-smart-process-reads:
-	docker compose run --rm php-cli $(PHPUNIT) --testsuite integration_tests_crm_smart_process_reads
+	docker compose run --rm php-cli vendor/bin/phpunit --testsuite integration_tests_crm_smart_process_reads

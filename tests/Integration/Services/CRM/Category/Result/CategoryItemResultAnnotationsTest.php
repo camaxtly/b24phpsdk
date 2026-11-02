@@ -22,15 +22,15 @@ class CategoryItemResultAnnotationsTest extends TestCase
         $fields = $category->fields(2)->getFieldsDescription()['fields'];
         // Metadata is portal-dependent; origin fields are optional. Require every
         // live system field to be annotated, without requiring optional fields to exist.
-        $annotations = TyphoonReflector::build()->reflectClass(CategoryItemResult::class)->properties();
+        $collection = TyphoonReflector::build()->reflectClass(CategoryItemResult::class)->properties();
         foreach (array_keys($fields) as $field) {
-            self::assertTrue(isset($annotations[$field]) && $annotations[$field]->isAnnotated());
+            self::assertTrue(isset($collection[$field]) && $collection[$field]->isAnnotated());
         }
 
-        foreach ($category->list(2)->getCategories() as $item) {
-            $raw = $category->get(2, $item->id)->getCoreResponse()->getResponseData()->getResult()['category'];
+        foreach ($category->list(2)->getCategories() as $categoryItemResult) {
+            $raw = $category->get(2, $categoryItemResult->id)->getCoreResponse()->getResponseData()->getResult()['category'];
             foreach (array_keys($raw) as $field) {
-                self::assertTrue(isset($annotations[$field]) && $annotations[$field]->isAnnotated());
+                self::assertTrue(isset($collection[$field]) && $collection[$field]->isAnnotated());
             }
         }
     }
@@ -39,18 +39,9 @@ class CategoryItemResultAnnotationsTest extends TestCase
     {
         $category = Factory::getServiceBuilder()->getCRMScope()->category();
         $fields = $category->fields(2)->getFieldsDescription()['fields'];
-        // The shared assertion uses the legacy name "bool" for the universal
-        // metadata type "boolean"; both describe the same bool result contract.
-        foreach ($fields as &$field) {
-            if ($field['type'] === 'boolean') {
-                $field['type'] = 'bool';
-            }
-        }
-
-        unset($field);
         $this->assertBitrix24AllResultItemFieldsHasValidTypeAnnotation($fields, CategoryItemResult::class);
-        foreach ($category->list(2)->getCategories() as $item) {
-            $this->assertBitrix24ResultItemFieldsTypeCastMatchAnnotations($category->get(2, $item->id)->category(), CategoryItemResult::class);
+        foreach ($category->list(2)->getCategories() as $categoryItemResult) {
+            $this->assertBitrix24ResultItemFieldsTypeCastMatchAnnotations($category->get(2, $categoryItemResult->id)->category(), CategoryItemResult::class);
         }
     }
 }

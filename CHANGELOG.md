@@ -4,7 +4,7 @@
 
 - Backported typed universal CRM category reads and original custom-field names for item reads and batch traversal ([#727](https://github.com/bitrix24/b24phpsdk/issues/727)).
 - Fixed type deletion parameter mapping and result verification ([#728](https://github.com/bitrix24/b24phpsdk/issues/728)).
-- Reused upstream annotated-item casting for category results while retaining the application contracts from commit 398296d.
+- Preserved the application contracts and scalar result-casting conventions from SDK commit 398296d without adding runtime dependencies.
 
 ## 3.2.0 – UNRELEASED
 

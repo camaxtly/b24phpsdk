@@ -18,9 +18,9 @@ class CategoryTest extends TestCase
         $items = $category->list(2)->getCategories();
         self::assertNotEmpty($items);
         $item = $items[0];
-        $loaded = $category->get(2, $item->id)->category();
-        self::assertSame($item->name, $loaded->name);
-        self::assertSame(2, $loaded->entityTypeId);
+        $categoryItemResult = $category->get(2, $item->id)->category();
+        self::assertSame($item->name, $categoryItemResult->name);
+        self::assertSame(2, $categoryItemResult->entityTypeId);
         self::assertArrayHasKey('id', $category->fields(2)->getFieldsDescription()['fields']);
     }
 }
