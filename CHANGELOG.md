@@ -1470,6 +1470,10 @@ Supported in bitrix24-php-sdk methods with batch wrapper count: 29
 
 <!--
 ## Unreleased
+
+### Added
+
+- Added typed `crm.stagehistory.list` for leads, deals, and smart processes with filtering and pagination ([#730](https://github.com/bitrix24/b24phpsdk/issues/730))
 ### Added
 ### Changed
 ### Removed

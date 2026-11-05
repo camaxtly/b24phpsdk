@@ -7,6 +7,9 @@
         <ini name="error_reporting" value="-1"/>
     </php>
     <testsuites>
+        <testsuite name="integration_tests_crm_stage_history">
+            <directory>./tests/Integration/Services/CRM/StageHistory</directory>
+        </testsuite>
         <testsuite name="unit_tests">
             <directory>./tests/Unit</directory>
         </testsuite>
