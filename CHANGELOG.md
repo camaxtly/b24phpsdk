@@ -8,6 +8,10 @@
 
 ## 3.2.0 – UNRELEASED
 
+### Fixed
+
+- Handle unrecognized portal license family codes without interrupting metadata access and expose the original code through `getLicenseFamilyCode()` ([#732](https://github.com/bitrix24/b24phpsdk/issues/732)).
+
 ### Added
 
 - Added typed fluent `Services\IM\Message\Attach` payload builders for `ATTACH` blocks in `im.message.add` and `im.message.update`, plus `RawAttach::fromArray()` as an object-based escape hatch for unsupported or vendor-extended payload shapes ([#426](https://github.com/bitrix24/b24phpsdk/issues/426))

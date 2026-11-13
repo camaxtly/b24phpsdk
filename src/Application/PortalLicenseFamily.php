@@ -26,5 +26,7 @@ enum PortalLicenseFamily: string
     case pro = 'pro';
     case project = 'project';
     case en = 'en';
+    case ent = 'ent';
     case nfr = 'nfr';
+    case unknown = 'unknown';
 }
